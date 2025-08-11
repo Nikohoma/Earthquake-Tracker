@@ -30,7 +30,7 @@ def get_earthquake_data():
 # st.title("Earthquake Tracker")
 st.markdown("<h1 style='text-align: center;'>Earthquake Tracker</h1>", unsafe_allow_html=True)
 st.markdown(
-    "<h3 style='text-align: center;'>Seismic Activity in the past hour.</h3>",
+    "<h3 style='text-align: center;'>Seismic Activities in the past hour.</h3>",
     unsafe_allow_html=True
 )
 
