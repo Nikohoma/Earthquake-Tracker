@@ -3,6 +3,7 @@ import pandas as pd
 import requests
 import plotly.express as px
 from datetime import datetime
+import os
 
 st.set_page_config(page_title="Real-Time Earthquake Tracker", layout="wide")
 
@@ -35,6 +36,12 @@ st.markdown(
 )
 
 df = get_earthquake_data()
+
+# append data into csv
+if not os.path.isfile("recent_earthquakes.csv"):
+    df.to_csv("recent_earthquakes.csv", mode ="w", index=False, header=True)
+else:
+    df.to_csv("recent_earthquakes.csv", mode ="a", index=False, header=False)
 
 
 fig = px.scatter_geo(
