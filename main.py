@@ -20,7 +20,7 @@ def get_earthquake_data():
         coords = i["geometry"]["coordinates"]
         table.append({
             "Place": props["place"],
-            "Magnitude": props["mag"],
+            "Magnitude": abs(props["mag"]),
             "Time": datetime.utcfromtimestamp(props["time"]/1000),
             "Longitude": coords[0],
             "Latitude": coords[1],
