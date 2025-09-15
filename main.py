@@ -4,6 +4,8 @@ import requests
 import plotly.express as px
 from datetime import datetime
 import os
+import boto3
+from io import StringIO
 
 st.set_page_config(page_title="Real-Time Earthquake Tracker", layout="wide")
 
@@ -37,11 +39,23 @@ st.markdown(
 
 df = get_earthquake_data()
 
+
+
 # append data into csv
-if not os.path.isfile("recent_earthquakes.csv"):
-    df.to_csv("recent_earthquakes.csv", mode ="w", index=False, header=True)
-else:
-    df.to_csv("recent_earthquakes.csv", mode ="a", index=False, header=False)
+# if not os.path.isfile("recent_earthquakes.csv"):
+#     df.to_csv("recent_earthquakes.csv", mode ="w", index=False, header=True)
+# else:
+#     df.to_csv("recent_earthquakes.csv", mode ="a", index=False, header=False)
+
+
+#Upload earthquake data to S3
+
+csv_buffer=StringIO()
+df.to_csv(csv_buffer, index=False)
+
+s3=boto3.client('s3')
+s3.put_object(Bucket='trackquakes.data', Key='earthquakes.csv', Body=csv_buffer.getvalue())
+
 
 
 fig = px.scatter_geo(
