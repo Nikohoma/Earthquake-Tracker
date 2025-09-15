@@ -3,3 +3,6 @@ pandas
 requests
 plotly
 os
+boto3
+io
+datetime
